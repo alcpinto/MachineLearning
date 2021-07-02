@@ -1,0 +1,8 @@
+# IDEs
+.vscode
+.metals
+
+# Project folders
+/project/project
+.bloop
+target/
