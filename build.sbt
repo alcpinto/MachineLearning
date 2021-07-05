@@ -25,9 +25,25 @@ ThisBuild / scalacOptions ++= Seq(
 )
 
 
+lazy val commonLibs = Seq(
+  libraryDependencies ++= Seq(
+    Dependencies.Libraries.sparkCore,
+    Dependencies.Libraries.sparkSql,
+    Dependencies.Libraries.sparkMllib
+  )
+)
+
+
+lazy val sparkMl = (project in file("spark-ml"))
+  .settings(commonLibs: _*)
+  .settings(
+    publish := {}
+  )
+
 
 val sparkMLLib = (project in file("."))
   .settings(
     publishLocal := {},
     publish := {}
   )
+  .aggregate(sparkMl)
