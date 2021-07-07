@@ -27,7 +27,6 @@ ThisBuild / scalacOptions ++= Seq(
 
 lazy val commonLibs = Seq(
   libraryDependencies ++= Seq(
-    Dependencies.Libraries.plotly,
     Dependencies.Libraries.sparkCore,
     Dependencies.Libraries.sparkSql,
     Dependencies.Libraries.sparkMllib
@@ -35,8 +34,24 @@ lazy val commonLibs = Seq(
 )
 
 
+lazy val plotlyLibs = Seq(
+  libraryDependencies ++= Seq(
+    Dependencies.Libraries.plotly
+  )
+)
+
+
 lazy val sparkMl = (project in file("spark-ml"))
   .settings(commonLibs: _*)
+  .settings(
+    publish := {}
+  )
+  .dependsOn(plotlySpark)
+
+
+lazy val plotlySpark = (project in file("plotly-spark"))
+  .settings(commonLibs: _*)
+  .settings(plotlyLibs: _*)
   .settings(
     publish := {}
   )
@@ -47,4 +62,4 @@ val sparkMLLib = (project in file("."))
     publishLocal := {},
     publish := {}
   )
-  .aggregate(sparkMl)
+  .aggregate(sparkMl, plotlySpark)

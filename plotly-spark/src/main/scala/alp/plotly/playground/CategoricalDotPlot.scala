@@ -1,4 +1,4 @@
-package alp.playground
+package alp.plotly.playground
 
 import plotly._
 import plotly.element._
@@ -101,7 +101,7 @@ object CategoricalDotPlot extends App {
         .withHovermode(HoverMode.Closest)
 
 
-    Plotly.plot("/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/categorical-scatter2.html", data, layout, openInBrowser=false)
+    Plotly.plot("/home/abilio/repos/training/MachineLearning/spark-mllib/plotly-spark/target/categorical-scatter2.html", data, layout, openInBrowser=false)
 
   
 }

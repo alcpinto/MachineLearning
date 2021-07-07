@@ -6,6 +6,7 @@ import org.apache.spark.ml.regression.LinearRegressionModel
 import org.apache.spark.sql.DataFrame
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.Pipeline
+import alp.plotly.extensions.SparkExtensions._
 
 object SimpleLinearRegression extends App {
 
@@ -19,6 +20,9 @@ object SimpleLinearRegression extends App {
         .option("header", "true")
         .option("inferSchema", "true")
         .csv("/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/src/main/resources/data/Salary_Data.csv")
+
+
+    // dataset.scatter("YearsExperience", "Salary", "/home/abilio/repos/training/MachineLearning/spark-mllib/plotly-spark/target/dataset.html")
 
 
     private lazy val Array(training, test) = dataset.randomSplit(Array(0.8, 0.2))

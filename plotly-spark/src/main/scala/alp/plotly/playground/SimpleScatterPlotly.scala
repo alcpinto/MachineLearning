@@ -1,4 +1,4 @@
-package alp.playground
+package alp.plotly.playground
 
 import plotly._
 import plotly.element._
@@ -30,6 +30,6 @@ object SimpleScatterPlotly extends App {
         .withTitle("Line and Scatter Plot")
 
 
-    Plotly.plot("/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/scatter.html", data, layout, openInBrowser = false)
+    Plotly.plot("/home/abilio/repos/training/MachineLearning/spark-mllib/plotly-spark/target/scatter.html", data, layout, openInBrowser = false)
   
 }
