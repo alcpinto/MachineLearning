@@ -27,6 +27,7 @@ ThisBuild / scalacOptions ++= Seq(
 
 lazy val commonLibs = Seq(
   libraryDependencies ++= Seq(
+    Dependencies.Libraries.plotly,
     Dependencies.Libraries.sparkCore,
     Dependencies.Libraries.sparkSql,
     Dependencies.Libraries.sparkMllib

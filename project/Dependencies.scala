@@ -20,18 +20,22 @@ object Dependencies {
 
   object Versions {
     lazy val spark          = "3.1.2"
+    lazy val plotly         = "0.8.2"
   }
 
   object Libraries {
     private def createModuleID(group: String, artifact: String, version: String, crossCompile: Boolean=true): ModuleID =
       if(crossCompile) group %% artifact % version else group % artifact % version
     private def sparkM(artifact: String): ModuleID = createModuleID("org.apache.spark", artifact, Versions.spark)
-
+    private def plotlyM: ModuleID = createModuleID("org.plotly-scala", "plotly-render", Versions.plotly)
 
     
     lazy val sparkCore                     = sparkM("spark-core")
     lazy val sparkSql                      = sparkM("spark-sql")
     lazy val sparkMllib                    = sparkM("spark-mllib")
+
+
+    lazy val plotly                        = plotlyM
 
   }
 
