@@ -7,6 +7,11 @@ import org.apache.spark.sql.DataFrame
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.ml.Pipeline
 import alp.plotly.extensions.SparkExtensions._
+import alp.plotly.model.ScatterOptions
+import plotly.layout.Axis
+import alp.plotly.model.PlotData
+import plotly.element.ScatterMode
+import org.apache.spark.ml.linalg.Vectors
 
 object SimpleLinearRegression extends App {
 
@@ -22,7 +27,13 @@ object SimpleLinearRegression extends App {
         .csv("/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/src/main/resources/data/Salary_Data.csv")
 
 
-    // dataset.scatter("YearsExperience", "Salary", "/home/abilio/repos/training/MachineLearning/spark-mllib/plotly-spark/target/dataset.html")
+    val options: ScatterOptions = ScatterOptions(Seq(PlotData("YearsExperience", 
+                                                "Salary")), 
+                                                "/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/dataset.html",
+                                                title = Some("Salary Data"),
+                                                xAxis = Some(Axis().withTitle("Years Experience")),
+                                                yAxis = Some(Axis().withTitle("Salary")))
+    dataset.scatter(options)
 
 
     private lazy val Array(training, test) = dataset.randomSplit(Array(0.8, 0.2))
@@ -57,6 +68,30 @@ object SimpleLinearRegression extends App {
     private val predicted: DataFrame = model.transform(preprocessedTest)
     predicted.show()
 
+
+    // Visualising results
+    private def predictedScatterOptions(fileName: String, title: String): ScatterOptions = 
+        ScatterOptions(Seq(PlotData("YearsExperience", "prediction", Some(ScatterMode(ScatterMode.Lines))),
+                        PlotData("YearsExperience", "Salary")), 
+                        s"/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/$fileName.html",
+                        title = Option(title),
+                        xAxis = Some(Axis().withTitle("Years Experience")),
+                        yAxis = Some(Axis().withTitle("Salary")))
+
+    // Visualising the Training set results
+    model.transform(preprocessedTraning).scatter(predictedScatterOptions("predictedTraining", "Training set results"))
+    // Visualising the Test set results
+    predicted.scatter(predictedScatterOptions("predicted", "Test set results"))
+
+
+    // Making a single prediction (employee with 12 years of experience)
+    val pred12YE = model.predict(Vectors.dense(Array(12.0)))
+    println(s"Predicted 12 Years Experience: $pred12YE")
+
+    // Getting the linear regression formula
+    val coef = model.coefficients
+    val intercept = model.intercept
+    println(s"Formula: $intercept + ${coef(0)} * YearsExperience")
 
     spark.close
   

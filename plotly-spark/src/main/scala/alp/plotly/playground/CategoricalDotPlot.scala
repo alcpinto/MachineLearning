@@ -4,7 +4,7 @@ import plotly._
 import plotly.element._
 import plotly.layout._
 
-
+    
 object CategoricalDotPlot extends App {
 
     val country = Seq(
