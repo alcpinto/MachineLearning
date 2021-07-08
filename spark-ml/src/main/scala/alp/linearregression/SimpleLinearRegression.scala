@@ -1,17 +1,17 @@
 package alp.linearregression
 
-import org.apache.spark.sql.SparkSession
+import alp.plotly.extensions.SparkExtensions._
+import alp.plotly.model.PlotData
+import alp.plotly.model.ScatterOptions
+import org.apache.spark.ml.Pipeline
+import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.ml.linalg.Vectors
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.ml.regression.LinearRegressionModel
 import org.apache.spark.sql.DataFrame
-import org.apache.spark.ml.feature.VectorAssembler
-import org.apache.spark.ml.Pipeline
-import alp.plotly.extensions.SparkExtensions._
-import alp.plotly.model.ScatterOptions
-import plotly.layout.Axis
-import alp.plotly.model.PlotData
+import org.apache.spark.sql.SparkSession
 import plotly.element.ScatterMode
-import org.apache.spark.ml.linalg.Vectors
+import plotly.layout.Axis
 
 object SimpleLinearRegression extends App {
 
