@@ -71,8 +71,8 @@ object SimpleLinearRegression extends App {
 
     // Visualising results
     private def predictedScatterOptions(fileName: String, title: String): ScatterOptions = 
-        ScatterOptions(Seq(PlotData("YearsExperience", "prediction", Some(ScatterMode(ScatterMode.Lines))),
-                        PlotData("YearsExperience", "Salary")), 
+        ScatterOptions(Seq(PlotData("YearsExperience", "prediction", Some("Prediction"), Some(ScatterMode(ScatterMode.Lines))),
+                        PlotData("YearsExperience", "Salary")),
                         s"/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/$fileName.html",
                         title = Option(title),
                         xAxis = Some(Axis().withTitle("Years Experience")),

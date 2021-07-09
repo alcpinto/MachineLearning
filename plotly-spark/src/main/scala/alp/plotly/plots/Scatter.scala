@@ -1,13 +1,13 @@
 package alp.plotly.plots
 
-import java.io.File
-import alp.plotly.model.ScatterOptions
+import alp.plotly.exceptions.InvalidScatterOptionsException
+import alp.plotly.model.{PlotData, ScatterOptions}
 import org.apache.spark.sql.DataFrame
+import plotly.Plotly
 import plotly.element.ScatterMode
 import plotly.layout.Layout
-import plotly.Plotly
-import alp.plotly.exceptions.InvalidScatterOptionsException
-import alp.plotly.model.PlotData
+
+import java.io.File
 import scala.util.Try
 
 
@@ -24,14 +24,10 @@ object Scatter {
         } 
     }
 
-
-
-
-
     private def plotInternal(df: DataFrame, options: ScatterOptions): File = {
         // validate filePath
         val file = new File(options.filePath)
-        val addsuffix = (file.isDirectory, file.exists, options.overwrite) match {
+        val addSuffix = (file.isDirectory, file.exists, options.overwrite) match {
             case (true, _, _) => throw InvalidScatterOptionsException("Scatter options' filePath is a directory")
             case (false, true, false) => true
             case (false, true, true)  => Try(file.delete()).getOrElse(true)
@@ -45,17 +41,18 @@ object Scatter {
         layout =  options.xAxis.map(a => layout.withXaxis(a)).getOrElse(layout)
         layout =  options.yAxis.map(a => layout.withYaxis(a)).getOrElse(layout)
             
-        Plotly.plot(options.filePath, data, layout, openInBrowser = false, addSuffixIfExists = addsuffix)
+        Plotly.plot(options.filePath, data, layout, openInBrowser = false, addSuffixIfExists = addSuffix)
     }
 
 
     private def getTraces(df: DataFrame, data: Seq[PlotData]): Seq[plotly.Scatter] = data.map { d =>
         val rows = df.select(d.xCol, d.yCol).collect().toSeq
-        val x = rows.map(r => r.get(0).toString())
-        val y = rows.map(r => r.get(1).toString())
+        val x = rows.map(r => r.get(0).toString)
+        val y = rows.map(r => r.get(1).toString)
         plotly.Scatter()
             .withX(x)
             .withY(y)
+            .withName(d.name.getOrElse(d.yCol))
             .withMode(d.mode.getOrElse(ScatterMode(ScatterMode.Markers)))
     }
 
