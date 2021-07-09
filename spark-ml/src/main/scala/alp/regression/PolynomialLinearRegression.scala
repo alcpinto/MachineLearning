@@ -1,4 +1,4 @@
-package alp.linearregression
+package alp.regression
 
 import alp.plotly.model.{PlotData, ScatterOptions}
 import org.apache.spark.ml.Pipeline

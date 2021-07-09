@@ -1,4 +1,4 @@
-package alp.linearregression
+package alp.regression
 
 import alp.plotly.extensions.SparkExtensions._
 import alp.plotly.model.PlotData
