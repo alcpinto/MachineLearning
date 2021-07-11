@@ -1,19 +1,13 @@
 package alp.regression
 
 import org.apache.spark.ml.Pipeline
-import org.apache.spark.ml.PipelineModel
 import org.apache.spark.ml.evaluation.RegressionEvaluator
-import org.apache.spark.ml.feature.OneHotEncoder
-import org.apache.spark.ml.feature.StringIndexer
-import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.ml.feature.{OneHotEncoder, StringIndexer, VectorAssembler}
 import org.apache.spark.ml.param.ParamMap
 import org.apache.spark.ml.regression.LinearRegression
-import org.apache.spark.ml.tuning.CrossValidator
-import org.apache.spark.ml.tuning.CrossValidatorModel
-import org.apache.spark.ml.tuning.ParamGridBuilder
+import org.apache.spark.ml.tuning.{CrossValidator, CrossValidatorModel, ParamGridBuilder}
 import org.apache.spark.mllib.evaluation.RegressionMetrics
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object MultipleLinearRegression extends App {
 

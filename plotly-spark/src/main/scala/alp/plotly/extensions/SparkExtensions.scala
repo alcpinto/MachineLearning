@@ -3,15 +3,14 @@ package alp.plotly.extensions
 import java.io.File
 import org.apache.spark.sql.DataFrame
 import alp.plotly.model.ScatterOptions
-import alp.plotly.plots.Scatter
+import alp.plotly.plots.ScatterPlot
 
 
 object SparkExtensions {
 
     implicit class DataframeExtensions(df: DataFrame) {
 
-        // TODO plot(options: xxxOptions*)
-        def scatter(options: ScatterOptions): File = Scatter.plot(df, options)
+        def scatter(options: ScatterOptions): File = ScatterPlot.plot(df, options)
 
     }
   

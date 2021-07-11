@@ -11,7 +11,7 @@ import java.io.File
 import scala.util.Try
 
 
-object Scatter {
+object ScatterPlot {
 
     def plot(df: DataFrame, options: ScatterOptions): File = (df, options) match {
         case (null, _)     => throw InvalidScatterOptionsException("DataFrame is null")

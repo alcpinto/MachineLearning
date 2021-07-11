@@ -57,15 +57,15 @@ object PolynomialLinearRegression extends App {
   predicted.show()
 
   // Visualising results
-  private def predictedScatterOptions(fileName: String, title: String): ScatterOptions =
+  private lazy val predictedScatterOptions: ScatterOptions =
     ScatterOptions(Seq(PlotData("Level", "prediction", Some("Predicted Salary"), Some(ScatterMode(ScatterMode.Lines))),
       PlotData("Level", "Salary", Some("Real Salary"))),
-      s"/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/$fileName.html",
-      title = Option(title),
+      s"/home/abilio/repos/training/MachineLearning/spark-mllib/spark-ml/target/polynomial.html",
+      title = Option("Polynomial Regression"),
       xAxis = Some(Axis().withTitle("Position Level")),
       yAxis = Some(Axis().withTitle("Salary")))
 
-  predicted.scatter(predictedScatterOptions("polynomial", "Polynomial Regression"))
+  predicted.scatter(predictedScatterOptions)
   predicted.unpersist()
 
   import spark.implicits._

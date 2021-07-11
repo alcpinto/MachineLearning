@@ -24,10 +24,10 @@ object DataPreprocessing extends App {
 
 
     private val dataSchema = StructType(Array(
-        StructField("Country", StringType, true),
-        StructField("Age", IntegerType, true),
-        StructField("Salary", DoubleType, true),
-        StructField("Purchased", StringType, true)
+        StructField("Country", StringType, nullable = true),
+        StructField("Age", IntegerType, nullable = true),
+        StructField("Salary", DoubleType, nullable = true),
+        StructField("Purchased", StringType, nullable = true)
     ))
 
     private val dataset: DataFrame = spark.read
