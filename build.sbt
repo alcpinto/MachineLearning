@@ -34,6 +34,15 @@ lazy val commonLibs = Seq(
 )
 
 
+lazy val pmmlLibs = Seq(
+  libraryDependencies ++= Seq(
+    Dependencies.Libraries.jpmmlSparkml,
+    Dependencies.Libraries.jpmmlEvaluator,
+    Dependencies.Libraries.pmml4sSpark
+  )
+)
+
+
 lazy val plotlyLibs = Seq(
   libraryDependencies ++= Seq(
     Dependencies.Libraries.plotly
@@ -43,6 +52,7 @@ lazy val plotlyLibs = Seq(
 
 lazy val sparkMl = (project in file("spark-ml"))
   .settings(commonLibs: _*)
+  .settings(pmmlLibs:_*)
   .settings(
     publish := {}
   )
